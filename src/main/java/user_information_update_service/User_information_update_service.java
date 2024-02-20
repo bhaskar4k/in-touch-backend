@@ -29,15 +29,16 @@ public class User_information_update_service {
 	
 	/*--------- Update user information ------------------ -----------------------------------------------*/
 	public String update_user_information(Update_user update_user) {
-		String field=update_user.getField_name();
+		String field=update_user.getField_name(), updated_value=update_user.getUpdated_value();
 		
-		System.out.println(update_user.getUpdated_value()+field+" asche baire");
-		if(field=="user_name") {
-			System.out.println(update_user.getUpdated_value()+" asche vetor");
-			if(user_information_service.is_this_username_available(update_user.getUpdated_value())==true) {			
-				return "3";
-			}
+		if(field.equals("user_name") && user_information_service.is_this_username_available(updated_value)==true) {			
+			return "3";
 		}
+		
+		if(field.equals("email") && user_information_service.is_this_email_available(updated_value)==true) {			
+			return "3";
+		}
+		
 		if(db_user_information_update_service.update_user_information(update_user)==true) {
 			return "0";
 		}
