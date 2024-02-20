@@ -155,14 +155,14 @@ public class DB_user_information_service {
 	
 	
 	/*--------- Login the user and return his user_name -----------------------------------------------*/
-	public String login_user(User user) {
+	public User login_user(User user) {
 		PreparedStatement preparedStatement=null;
-		String user_name="null";
+		String user_name="null", birthdate="null", gender="null", phone="null", email="null", password="null", bio="null";
 		
         try{        
-            String sql1 = "SELECT user_name FROM touch.user_a_to_i where email=? and password=?;"; 
-            String sql2 = "SELECT user_name FROM touch.user_j_to_s where email=? and password=?;";  
-            String sql3 = "SELECT user_name FROM touch.user_t_to_z where email=? and password=?;";  
+            String sql1 = "SELECT * FROM touch.user_a_to_i where email=? and password=?;"; 
+            String sql2 = "SELECT * FROM touch.user_j_to_s where email=? and password=?;";  
+            String sql3 = "SELECT * FROM touch.user_t_to_z where email=? and password=?;";  
             
             for(int i=0; i<3; i++) {
             	if(i==0) preparedStatement = connection.prepareStatement(sql1);        
@@ -176,6 +176,12 @@ public class DB_user_information_service {
                                 
                 while (resultSet.next()) {
                 	user_name = resultSet.getString("user_name");
+                	birthdate = resultSet.getString("birthdate");
+                	gender = resultSet.getString("gender");
+                	phone = resultSet.getString("phone");
+                	email = resultSet.getString("email");
+                	password = resultSet.getString("password");
+                	bio = resultSet.getString("bio");
                 }
                 resultSet.close();
                 
@@ -189,10 +195,11 @@ public class DB_user_information_service {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-            
         }
         
-        return user_name;
+        User login_user=new User(user_name,birthdate,gender,phone,email,password,bio);
+        
+        return login_user;
 	}
 	/*-------------------------------------------------------------------------------------------------*/
 }

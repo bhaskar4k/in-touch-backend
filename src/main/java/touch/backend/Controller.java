@@ -53,7 +53,7 @@ public class Controller {
 	
 	/*--------- Login user ----------------------------------------------------------------------------------------*/
 	@PostMapping("/login_user")
-	public String login_user(@RequestBody User user) {
+	public User login_user(@RequestBody User user) {
 		// Login user by calling the function "login_registration.Login.login_user()"
 		return user_information_service.login_user(user);
 	}
@@ -93,5 +93,13 @@ public class Controller {
     public String update_user_information(@RequestBody Update_user update_user) {
 		return user_information_update_service.update_user_information(update_user);
     }
+	/*-------------------------------------------------------------------------------------------------------------*/
+	
+	
+	/*--------- Change profile photo ------------------------------------------------------------------------------*/
+	@PostMapping("/delete_user")
+	public String delete_user(@RequestBody String user_name) throws SQLException, IOException {
+        return user_information_update_service.delete_user(user_name);
+	}
 	/*-------------------------------------------------------------------------------------------------------------*/
 }

@@ -49,19 +49,14 @@ public class User_information_service {
 	
 	
 	/*--------- Login user ------------------------------------------------------------------------------*/
-	public String login_user(User user) {	
+	public User login_user(User user) {	
 		try {
-			String user_name=db_user_information_service.login_user(user);
-			if(user_name!="null") {
-				return "0|"+user_name;
-			}else {
-				return "2|Incorrect credentials or account doesn't exist.";
-			}
+			return db_user_information_service.login_user(user);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "2|Internal Server Error.";
+		return new User("","");
 	}
 	/*---------------------------------------------------------------------------------------------------*/
 }
