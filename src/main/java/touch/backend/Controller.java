@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ import user_information_update_service.User_information_update_service;
 
 @RestController
 @CrossOrigin
+@EnableCaching
 public class Controller {
 	private User_information_service user_information_service;
 	private User_information_update_service user_information_update_service;
@@ -71,8 +74,9 @@ public class Controller {
 	/*-------------------------------------------------------------------------------------------------------------*/
 
 	
-	/*--------- Change profile photo ------------------------------------------------------------------------------*/
+	/*--------- Get profile photo ------------------------------------------------------------------------------*/
 	@PostMapping("/get_profile_photo")
+	@Cacheable(key="#user_name", value="Searchbar_suggession")
 	public Searchbar_suggession get_profile_photo(@RequestBody String user_name) throws SQLException, IOException {
         Searchbar_suggession suggession=new Searchbar_suggession(user_name,user_information_get_service.get_profile_photo(user_name));
         return suggession;
