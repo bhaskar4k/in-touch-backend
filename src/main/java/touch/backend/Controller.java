@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -65,6 +66,7 @@ public class Controller {
 	
 	/*--------- Change profile photo ------------------------------------------------------------------------------*/
 	@PostMapping("/change_profile_photo")
+	@CacheEvict(value = "Searchbar_suggession", key = "#user_name")
 	public String change_profile_photo(@RequestParam("image") MultipartFile file, @RequestParam("user_name") String user_name) throws SQLException, IOException {
         InputStream fileInputStream = file.getInputStream();
         String result=user_information_update_service.change_profile_photo(fileInputStream,user_name);
