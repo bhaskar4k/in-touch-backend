@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import model.Search_user_request_parameter;
-import model.Searchbar_suggession;
+import model.Profile_photo;
 import model.Update_user;
 import model.User;
 import searchbar_service.Searchbar_service;
@@ -66,7 +66,7 @@ public class Controller {
 	
 	/*--------- Change profile photo ------------------------------------------------------------------------------*/
 	@PostMapping("/change_profile_photo")
-	@CacheEvict(value = "Searchbar_suggession", key = "#user_name")
+	@CacheEvict(value = "Profile_photo", key = "#user_name")
 	public String change_profile_photo(@RequestParam("image") MultipartFile file, @RequestParam("user_name") String user_name) throws SQLException, IOException {
         InputStream fileInputStream = file.getInputStream();
         String result=user_information_update_service.change_profile_photo(fileInputStream,user_name);
@@ -78,17 +78,17 @@ public class Controller {
 	
 	/*--------- Get profile photo ------------------------------------------------------------------------------*/
 	@PostMapping("/get_profile_photo")
-	@Cacheable(key="#user_name", value="Searchbar_suggession")
-	public Searchbar_suggession get_profile_photo(@RequestBody String user_name) throws SQLException, IOException {
-        Searchbar_suggession suggession=new Searchbar_suggession(user_name,user_information_get_service.get_profile_photo(user_name));
-        return suggession;
+	@Cacheable(key="#user_name", value="Profile_photo")
+	public Profile_photo get_profile_photo(@RequestBody String user_name) throws SQLException, IOException {
+        Profile_photo profile_photo=new Profile_photo(user_name,user_information_get_service.get_profile_photo(user_name));
+        return profile_photo;
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/
 	
 	
 	/*--------- Get search suggession ------------------------------------------------------------------------------*/
 	@PostMapping("/find_result_of_searched_input")
-	public ArrayList<Searchbar_suggession> find_result_of_searched_input(@RequestBody Search_user_request_parameter search_user_request_parameter) throws SQLException, IOException {
+	public ArrayList<Profile_photo> find_result_of_searched_input(@RequestBody Search_user_request_parameter search_user_request_parameter) throws SQLException, IOException {
 		return searchbar_service.get_search_suggession(search_user_request_parameter);
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/

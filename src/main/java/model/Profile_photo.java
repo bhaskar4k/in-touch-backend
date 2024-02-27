@@ -1,13 +1,13 @@
 package model;
 
-public class Searchbar_suggession {
+public class Profile_photo {
 	private String user_name, profile_photo;
 	
-	public Searchbar_suggession() {
+	public Profile_photo() {
 		super();
 	}
 	
-	public Searchbar_suggession(String user_name, String profile_photo) {
+	public Profile_photo(String user_name, String profile_photo) {
 		super();
 		this.user_name = user_name;
 		this.profile_photo = profile_photo;

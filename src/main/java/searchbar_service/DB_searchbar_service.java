@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import database_configuration.Logical_sharding;
 import database_configuration.MySQLDatabaseConfig;
 import model.Search_user_request_parameter;
-import model.Searchbar_suggession;
+import model.Profile_photo;
 import user_information_get_service.User_information_get_service;
 
 public class DB_searchbar_service {
@@ -23,8 +23,8 @@ public class DB_searchbar_service {
 	}
 	
 	
-	public ArrayList<Searchbar_suggession> get_search_suggession(Search_user_request_parameter search_user_request_parameter) {
-		ArrayList<Searchbar_suggession> suggession=new ArrayList<>();
+	public ArrayList<Profile_photo> get_search_suggession(Search_user_request_parameter search_user_request_parameter) {
+		ArrayList<Profile_photo> suggession=new ArrayList<>();
 		PreparedStatement preparedStatement=null;
 		ResultSet resultSet=null;
 		
@@ -38,7 +38,7 @@ public class DB_searchbar_service {
             while (resultSet.next()) {
             	String user_name=resultSet.getString("user_name");
             	String profile_photo=user_information_get_service.get_profile_photo(user_name);
-            	Searchbar_suggession searchbar_suggession=new Searchbar_suggession(user_name,profile_photo);
+            	Profile_photo searchbar_suggession=new Profile_photo(user_name,profile_photo);
             	suggession.add(searchbar_suggession);            	
             }                   
         } catch (Exception e) {
