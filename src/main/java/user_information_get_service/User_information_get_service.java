@@ -21,4 +21,16 @@ public class User_information_get_service {
 		return "NULL";
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/
+
+	
+	/*--------- Get user bio ---------------------------------------------------------------------------------*/
+	public String get_user_bio(String user_name) {
+		try {
+			return db_user_information_get_service.get_user_bio(user_name);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	/*-------------------------------------------------------------------------------------------------------------*/
 }

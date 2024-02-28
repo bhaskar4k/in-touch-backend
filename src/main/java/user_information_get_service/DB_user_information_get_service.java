@@ -62,4 +62,40 @@ public class DB_user_information_get_service {
         return base64Image;
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/
+
+
+	/*--------- Get user bio ---------------------------------------------------------------------------------*/
+	public String get_user_bio(String user_name) throws IOException {
+		PreparedStatement preparedStatement=null;
+		String bio="";
+		
+        try {
+        	String database_shard=Logical_sharding.get_shard_name(user_name);
+            String sql = "SELECT bio FROM touch.user_"+database_shard+" WHERE user_name=?";
+            
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user_name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {               
+                if(resultSet.getString("bio")!=null) {
+                	bio=resultSet.getString("bio");
+                }                                         
+            }
+            
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }  finally {
+            try {
+            	preparedStatement.close();				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+            
+        }
+        
+        return bio;
+	}
+	/*-------------------------------------------------------------------------------------------------------------*/
 }

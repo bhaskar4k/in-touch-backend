@@ -59,4 +59,14 @@ public class User_information_service {
 		return new User("","");
 	}
 	/*---------------------------------------------------------------------------------------------------*/
+
+	
+	/*--------- Is it a valid profile ------------------------------------------------------------------------------*/
+	public String is_it_a_valid_profile(String user_name) {	
+		if(is_this_username_available(user_name)==true) {
+			return "ok";
+		}
+		return "not_ok";
+	}
+	/*---------------------------------------------------------------------------------------------------*/
 }

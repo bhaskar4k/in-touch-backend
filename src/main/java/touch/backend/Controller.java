@@ -62,7 +62,15 @@ public class Controller {
 		return user_information_service.login_user(user);
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/
-
+	
+	
+	/*--------- Is it a valid profile ------------------------------------------------------------------------------*/
+	@PostMapping("/is_it_a_valid_profile")
+	public String is_it_a_valid_profile(@RequestBody String user_name) throws SQLException, IOException {		
+		return user_information_service.is_it_a_valid_profile(user_name);
+	}
+	/*-------------------------------------------------------------------------------------------------------------*/
+	
 	
 	/*--------- Change profile photo ------------------------------------------------------------------------------*/
 	@PostMapping("/change_profile_photo")
@@ -82,6 +90,14 @@ public class Controller {
 	public Profile_photo get_profile_photo(@RequestBody String user_name) throws SQLException, IOException {
         Profile_photo profile_photo=new Profile_photo(user_name,user_information_get_service.get_profile_photo(user_name));
         return profile_photo;
+	}
+	/*-------------------------------------------------------------------------------------------------------------*/
+	
+	
+	/*--------- Get user bio ------------------------------------------------------------------------------*/
+	@PostMapping("/get_user_bio")
+	public String get_user_bio(@RequestBody String user_name) throws SQLException, IOException {
+        return user_information_get_service.get_user_bio(user_name);
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/
 	
