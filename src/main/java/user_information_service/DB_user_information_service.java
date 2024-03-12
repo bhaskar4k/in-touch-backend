@@ -169,19 +169,17 @@ public class DB_user_information_service {
 	    String database_shard=Logical_sharding.get_shard_name(user_name);
 			
 	    try{    
-	    	String sql = "delete from `touch`.`user_"+database_shard+"` where user_name=?";                          
+	    	String sql = "delete from touch.user_"+database_shard+" where user_name="+user_name;                          
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, user_name);
 
-            int count = preparedStatement.executeUpdate();	 
+            preparedStatement.executeUpdate();	          
             
-            sql = "delete from `touch`.`profile_photo_"+database_shard+"` where user_name=?";                          
+            sql = "delete from touch.post_count where username="+user_name;                          
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, user_name);
 
-            count = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             
-            if(count>1) account_deletion_status=true;
+            account_deletion_status=true;
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    } finally {

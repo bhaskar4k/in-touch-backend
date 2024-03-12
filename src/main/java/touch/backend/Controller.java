@@ -121,7 +121,7 @@ public class Controller {
 	/*--------- Change profile photo ------------------------------------------------------------------------------*/
 	@PostMapping("/delete_user")
 	public String delete_user(@RequestBody String user_name) throws SQLException, IOException {
-        return user_information_update_service.delete_user(user_name);
+        return user_information_service.delete_user(user_name);
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/
 

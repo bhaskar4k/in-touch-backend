@@ -69,4 +69,14 @@ public class User_information_service {
 		return "not_ok";
 	}
 	/*---------------------------------------------------------------------------------------------------*/
+
+
+	/*--------- Delete user -----------------------------------------------------------------*/
+	public String delete_user(String user_name) {
+		if(db_user_information_service.delete_account(user_name)==true) {
+			return "0";
+		}
+		return "2|Internal Server Error.";
+	}
+	/*-------------------------------------------------------------------------------------------------*/
 }

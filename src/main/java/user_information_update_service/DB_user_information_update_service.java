@@ -82,35 +82,6 @@ public class DB_user_information_update_service {
 	}
 	/*-------------------------------------------------------------------------------------------------*/
 	
-	
-	/*--------- Delete user ------------------------------------------------------------------*/
-	public Boolean delete_user(String user_name) {
-		PreparedStatement preparedStatement=null;
-        Boolean user_deletion_status=false;
-		
-        try{
-        	String database_shard=Logical_sharding.get_shard_name(user_name);
-            String sql = "DELETE FROM touch.user_"+database_shard+" WHERE user_name="+user_name;           
-            
-            preparedStatement = connection.prepareStatement(sql);
-            System.out.println(sql);
-            int count = preparedStatement.executeUpdate();
-                                 
-            if(count>0) user_deletion_status=true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-            	preparedStatement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-            
-        }
-        
-        return user_deletion_status;
-	}
-	/*-------------------------------------------------------------------------------------------------*/
 
 	
 	/*--------- Update post count ------------------------------------------------------------------*/
