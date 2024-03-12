@@ -33,4 +33,16 @@ public class User_information_get_service {
 		return "";
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/
+
+	
+	/*--------- Get post count ---------------------------------------------------------------------------------*/
+	public int get_post_count(String user_name) {
+		try {
+			return db_user_information_get_service.get_post_count(user_name);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	/*-------------------------------------------------------------------------------------------------------------*/
 }

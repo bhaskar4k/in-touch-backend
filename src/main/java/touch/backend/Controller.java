@@ -124,4 +124,20 @@ public class Controller {
         return user_information_update_service.delete_user(user_name);
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/
+
+	
+	/*--------- Get post count ------------------------------------------------------------------------------*/
+	@PostMapping("/get_post_count")
+	public int get_post_count(@RequestBody String user_name) {
+		return user_information_get_service.get_post_count(user_name);
+	}
+	/*-------------------------------------------------------------------------------------------------------------*/
+
+	
+	/*--------- Get post count ------------------------------------------------------------------------------*/
+	@PostMapping("/update_post_count")
+	public String update_post_count(@RequestBody String user_name) {
+		return user_information_update_service.update_post_count(user_name);
+	}
+	/*-------------------------------------------------------------------------------------------------------------*/
 }

@@ -127,16 +127,25 @@ public class DB_user_information_service {
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, user.getUser_name());
 
-                count = preparedStatement.executeUpdate();              
-                if(count>0) {
-                	registration_status=true;
-                }else {
-                	sql = "delete from `touch`.`user_"+database_shard+"` where user_name=?";                          
+                count = preparedStatement.executeUpdate();  
+                
+                if(count>0) {                	
+                	sql = "insert into touch.post_count (username,count) values (?, 0)";                          
                     preparedStatement = connection.prepareStatement(sql);
                     preparedStatement.setString(1, user.getUser_name());
 
                     count = preparedStatement.executeUpdate();
+                    
+                    if(count>0) {
+                    	registration_status=true;
+                    }else {
+                    	delete_account(user.getUser_name());
+                    }
+                }else {
+                	delete_account(user.getUser_name());
                 }
+            }else {
+            	delete_account(user.getUser_name());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,6 +162,39 @@ public class DB_user_information_service {
 	}
 	/*-------------------------------------------------------------------------------------------------*/
 	
+	@SuppressWarnings("resource")
+	public boolean delete_account(String user_name) {
+		PreparedStatement preparedStatement=null;
+	    Boolean account_deletion_status=false;
+	    String database_shard=Logical_sharding.get_shard_name(user_name);
+			
+	    try{    
+	    	String sql = "delete from `touch`.`user_"+database_shard+"` where user_name=?";                          
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user_name);
+
+            int count = preparedStatement.executeUpdate();	 
+            
+            sql = "delete from `touch`.`profile_photo_"+database_shard+"` where user_name=?";                          
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user_name);
+
+            count = preparedStatement.executeUpdate();
+            
+            if(count>1) account_deletion_status=true;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	        	preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	            
+	    }
+	        
+	    return account_deletion_status;
+	}
 	
 	/*--------- Login the user and return his user_name -----------------------------------------------*/
 	public User login_user(User user) {

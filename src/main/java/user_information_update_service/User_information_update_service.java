@@ -48,9 +48,19 @@ public class User_information_update_service {
 	/*-------------------------------------------------------------------------------------------------*/
 	
 	
-	/*--------- Delete user ------------------ -----------------------------------------------*/
+	/*--------- Delete user -----------------------------------------------------------------*/
 	public String delete_user(String user_name) {
 		if(db_user_information_update_service.delete_user(user_name)==true) {
+			return "0";
+		}
+		return "2|Internal Server Error.";
+	}
+	/*-------------------------------------------------------------------------------------------------*/
+
+	
+	/*--------- Update post count -----------------------------------------------------------------*/
+	public String update_post_count(String user_name) {
+		if(db_user_information_update_service.update_post_count(user_name)==true) {
 			return "0";
 		}
 		return "2|Internal Server Error.";

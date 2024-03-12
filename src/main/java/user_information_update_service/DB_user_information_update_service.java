@@ -111,4 +111,32 @@ public class DB_user_information_update_service {
         return user_deletion_status;
 	}
 	/*-------------------------------------------------------------------------------------------------*/
+
+	
+	/*--------- Update post count ------------------------------------------------------------------*/
+	public Boolean update_post_count(String user_name) {
+		PreparedStatement preparedStatement=null;
+        Boolean update_post_count_status=false;
+		
+        try{
+            String sql = "update touch.post_count set count=count+1 where username='"+user_name+"'";           
+            
+            preparedStatement = connection.prepareStatement(sql);
+            int count = preparedStatement.executeUpdate();
+                                 
+            if(count>0) update_post_count_status=true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+            	preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+            
+        }
+        
+        return update_post_count_status;
+	}
+	/*-------------------------------------------------------------------------------------------------*/
 }

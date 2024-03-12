@@ -98,4 +98,37 @@ public class DB_user_information_get_service {
         return bio;
 	}
 	/*-------------------------------------------------------------------------------------------------------------*/
+
+	
+	/*--------- Get post count ---------------------------------------------------------------------------------*/
+	public int get_post_count(String user_name) throws IOException {
+		PreparedStatement preparedStatement=null;
+		int count=-1;
+		
+        try {
+            String sql = "SELECT count FROM touch.post_count WHERE username=?";
+            
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user_name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {               
+            	count=resultSet.getInt("count");                                         
+            }
+            
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }  finally {
+            try {
+            	preparedStatement.close();				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+            
+        }
+        
+        return count;
+	}
+	/*-------------------------------------------------------------------------------------------------------------*/
 }
