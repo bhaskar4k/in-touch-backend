@@ -52,6 +52,7 @@ public class User_information_update_service {
 	/*--------- Update post count -----------------------------------------------------------------*/
 	public String update_post_count(String user_name) {
 		if(db_user_information_update_service.update_post_count(user_name)==true) {
+			System.out.println("ASCHE KHANKIR CHELE"+user_name);
 			return "0";
 		}
 		return "2|Internal Server Error.";
